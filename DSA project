@@ -1,0 +1,40 @@
+# import random and string module
+import random
+import string 
+
+# width and height of grid
+width = 24
+height = 24
+
+# define put word function to select random letters in grid
+def put_word(word,grid):
+    word= random.choice([word,word[::-1]])
+    d = random.choice([[1,0],[0,1],[1,1]])
+    
+    # advance way to write if-else statement referred by an expert(from a tutorial)
+    xsize = width  if d[0] == 0 else width  - len(word)
+    ysize = height if d[1] == 0 else height - len(word)
+    # location for randomly chosen letters
+    x = random.randrange(0,xsize)
+    y = random.randrange(0,ysize)
+   
+    # print the location of the given word   
+    print [x,y] 
+    
+    # location of words to be searched
+    for i in range (0,len(word)):
+        grid [y+d[1]*i][x+d[0]*i] = word[i]
+    return grid
+
+# grid contains uppercase strings only
+grid = [[random.choice(string.uppercase) for i in range(0,width)] for j in range(0,height)]
+
+# words to be searched in grid
+y= ["ROSE", "TULIP", "JASMINE", "LILY","FLORA"]
+for word in y:
+    grid = put_word(word, grid)
+    
+# print the grid along with the given word
+print ("\n\t\t**WORD SEARCH**")
+print "\n".join(map(lambda row: " ".join(row),grid))
+print "\n",( y)
